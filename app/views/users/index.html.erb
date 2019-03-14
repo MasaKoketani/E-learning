@@ -1,3 +1,35 @@
 <div>
-    <h1 class="text-center">Users</h1>
+    <h1>User lists</h1>
+</div>
+<br>
+<div>
+    <nav>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user| %>
+                    <tr>
+                        <td scope="row">
+                            <h4><% if user.picture.blank? %>
+                                <%= image_tag "/default.png", class: " rounded-circle user-default-image-index" %>
+                            <% else %>
+                                <%= image_tag user.picture.to_s, class: "rounded-circle user-default-image-index" %>
+                            <% end %>
+                            &ensp;&ensp;
+                            <%= link_to user.name, user_path(user) %></h4>
+                        </td>
+                        <td><h5 class="user-index-td"><%= user.email %></h5></td>
+                        <td><p class="user-index-td">admin's buttons</p></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%= paginate @users %>
+    </nav>
 </div>
