@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
     validates :email, presence: true, format: {with: EMAIL_REGEX}, uniqueness: true
     has_secure_password
-    validates :password, {presence: true}
+    validates :password, presence: true, allow_nil: true
 
     validates :picture, file_size: { less_than_or_equal_to: 500.kilobytes },
                      file_content_type: { allow: ['image/jpeg', 'image/png'] }

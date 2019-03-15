@@ -13,8 +13,8 @@ class SessionsController < ApplicationController
             flash[:notice] = "Hurray! Successfully logged in!"
             redirect_to user_url(user.id)
         else
-            render "new"
             flash[:danger] = "Invalid Credentials"
+            render "new"
         end
     end
 
