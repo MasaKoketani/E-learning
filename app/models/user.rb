@@ -2,16 +2,16 @@ class User < ApplicationRecord
 
     validates :name, presence: true
 
-    paginates_per 10
+    # paginates_per 10
 
     # constant variable
     EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
     validates :email, presence: true, format: {with: EMAIL_REGEX}, uniqueness: true
     has_secure_password
-    validates :password, {presence: true}
+    validates :password, presence: true, allow_nil: true
 
-    validates :picture, file_size: { less_than_or_equal_to: 100.kilobytes },
+    validates :picture, file_size: { less_than_or_equal_to: 500.kilobytes },
                      file_content_type: { allow: ['image/jpeg', 'image/png'] }
 
 
