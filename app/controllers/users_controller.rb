@@ -6,7 +6,8 @@ class UsersController < ApplicationController
       render "static_pages/home"
     end
 
-    @users = User.page(params[:page])
+    # @users = User.page(params[:page])
+    @users = User.all
   end
 
   def new

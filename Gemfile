@@ -41,7 +41,7 @@ gem 'jquery-rails'
 gem 'carrierwave',             '1.2.2'
 gem 'mini_magick',             '4.7.0'
 gem 'file_validators'
-gem 'kaminari', '~> 0.15.0'
+gem 'kaminari', '~> 0.17.0'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 
 group :development, :test do
