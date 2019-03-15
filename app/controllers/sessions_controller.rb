@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
     def new
-      if @current_user
+      if current_user
         render "users/feed"
       end
     end

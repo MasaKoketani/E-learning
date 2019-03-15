@@ -6,8 +6,7 @@ class UsersController < ApplicationController
       render "static_pages/home"
     end
 
-    # @users = User.page(params[:page])
-    @users = User.all
+    @users = User.page(params[:page]).per(10)
   end
 
   def new
@@ -19,19 +18,32 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "Succsesful sign-up!"
-      redirect_to root_url
+      redirect_to feed_path
     else
       render "new"
     end
   end
 
   def show
-
-    if !current_user
-      render "static_pages/home"
-    end
-
     @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update_attributes(user_params)
+      redirect_to feed_path
+    else
+      render "edit"
+    end
+  end
+
+  def feed
+    @user = User.find(current_user.id)
   end
 
 

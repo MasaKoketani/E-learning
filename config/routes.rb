@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     post "login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
 
+    get "feed", to: "users#feed"
+
     resources :users, except: :new
     resources :relationships, only: [:create, :destroy]
 end

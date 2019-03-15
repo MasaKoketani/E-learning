@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <%= link_to "E-learning", "#", class: "navbar-brand" %>
+        <%= link_to "E-learning", root_path, class: "navbar-brand" %>
 
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <%= link_to "Home", root_path, class: "nav-link" %>
+            <%= link_to "Dashboard", feed_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "About", about_path, class: "nav-link" %>
@@ -14,7 +14,7 @@
             <%= link_to "Users", users_path, class: "nav-link" %>
             </li>
             <li class="nav-item">
-            <%= link_to current_user.name, user_path(current_user), class: "nav-link" %>
+            <%= link_to "Edit Profile", edit_user_path(current_user), class: "nav-link" %>
             </li>
             <li>
               <%= link_to "Logout", logout_path, method: :delete,  class: "nav-link" %>
