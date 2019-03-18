@@ -1,0 +1,40 @@
+<div>
+    <h1>Manage lists</h1>
+    <br>
+    <nav>
+        <div class="text-right">
+            <%= button_to "New", new_admins_category_url, {method: :get, class: "btn btn-primary"} %>
+        </div>
+        <br>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Words</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @categories.each do |category| %>
+                    <tr>
+                        <td scope="row">
+                            <%= category.title %>
+                        </td>
+                        <td>
+                            <%= category.content %>
+                        </td>
+                        <td>
+                            <%= "words" %>
+                        </td>
+                        <td class="form-inline">
+                            <%= link_to "Edit", edit_admins_category_path(category), {method: :get, class: "btn btn-info"} %>
+                            &ensp;
+                            <%= link_to "Delete", admins_category_path(category), {method: :delete, class: "btn btn-danger"} %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </nav>
+</div>

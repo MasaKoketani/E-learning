@@ -2,6 +2,11 @@ Rails.application.routes.draw do
     root "static_pages#home"
     get "/about", to: "static_pages#about"
 
+    namespace :admins do
+        resources :users, only: [:index, :update]
+        resources :categories
+    end
+
     get "/signup", to: "users#new"
 
     get "login", to: "sessions#new"
@@ -12,8 +17,5 @@ Rails.application.routes.draw do
 
     resources :users, except: :new
     resources :relationships, only: [:create, :destroy]
-
-    namespace :admins do
-        resources :users, only: [:index, :update]
-    end
+    resources :categories, only: [:index]
 end
