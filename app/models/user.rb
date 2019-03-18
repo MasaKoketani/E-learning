@@ -2,8 +2,6 @@ class User < ApplicationRecord
 
     validates :name, presence: true
 
-    # paginates_per 10
-
     # constant variable
     EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

@@ -1,0 +1,36 @@
+<div>
+    <h1>Categories lists</h1>
+    <br>
+    <nav>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Words Count</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @categories.each do |category| %>
+                    <tr>
+                        <td scope="row">
+                            <%= category.title %>
+                        </td>
+                        <td>
+                            <%= category.content %>
+                        </td>
+                        <td>
+                            <%= "words" %>
+                        </td>
+                        <td>
+                            <%= "leran start!" %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </nav>
+</div>
+
+categories_path
