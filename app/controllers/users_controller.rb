@@ -2,10 +2,6 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
 
   def index
-    if current_user.admin == true
-      redirect_to admins_users_path
-    end
-
     @users = User.page(params[:page]).per(10)
   end
 
