@@ -25,6 +25,13 @@
                             <%= link_to user.name, user_path(user) %></h4>
                         </td>
                         <td><h5 class="user-index-td"><%= user.email %></h5></td>
+                        <td><p class="user-index-td">
+                            <% if user.admin %>
+                                <%= button_to "Remove from admin", admins_user_path(user), method: :put, class: "btn btn-danger btn-block" %>
+                            <% else %>
+                                <%= button_to "Set as admin", admins_user_path(user), method: :put, class: "btn btn-success btn-block" %>
+                            <% end %>
+                        </p></td>
                     </tr>
                 <% end %>
             </tbody>

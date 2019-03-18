@@ -2,10 +2,6 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
 
   def index
-    if !current_user
-      render "static_pages/home"
-    end
-
     @users = User.page(params[:page]).per(10)
   end
 
@@ -57,5 +53,11 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :picture, :password)
+    end
+
+    def admin_user
+      if current_user.admin
+        redirect_to admins_users_path
+      end
     end
 end
