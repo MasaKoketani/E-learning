@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'answers/new'
     root "static_pages#home"
     get "/about", to: "static_pages#about"
 
@@ -19,6 +20,10 @@ Rails.application.routes.draw do
 
     resources :users, except: :new
     resources :relationships, only: [:create, :destroy]
-    resources :categories, only: [:index]
-    resources :questions
+    resources :categories do
+        resources :questions
+    end
+    resources :lessons do 
+        resources :answers
+    end
 end
