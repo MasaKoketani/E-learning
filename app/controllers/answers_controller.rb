@@ -13,7 +13,7 @@ class AnswersController < ApplicationController
 
     if @answer.save
       flash[:notice] = "Successfully saved your answer"
-      if (@category.questions - @lesson.questions).empty?
+      if @lesson.next_question.nil?
         redirect_to lesson_path(@lesson)
       else
         redirect_to new_lesson_answer_path(lesson_id: @lesson.id)
@@ -30,7 +30,7 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:question_id, :choice_id, :lesson_id)
+    params.permit(:question_id, :choice_id, :lesson_id)
   end
 
 end

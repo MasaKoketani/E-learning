@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.page(params[:page]).per(7)
+    @lesson = Lesson.new
   end
 
 

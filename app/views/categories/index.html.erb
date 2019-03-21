@@ -24,7 +24,10 @@
                             <%= "words" %>
                         </td>
                         <td>
-                            <%= "leran start!" %>
+                            <%= form_for @lesson do |f| %>
+                                <%= hidden_field_tag :category_id, category.id %>
+                                <%= f.submit "Learn" %>
+                            <% end %>
                         </td>
                     </tr>
                 <% end %>
