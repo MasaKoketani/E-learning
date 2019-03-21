@@ -3,4 +3,5 @@ class Category < ApplicationRecord
     validates :content, presence: true
 
     has_many :questions
+    accepts_nested_attributes_for :questions
 end
