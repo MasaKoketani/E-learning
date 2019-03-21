@@ -19,7 +19,7 @@
                 <% @categories.each do |category| %>
                     <tr>
                         <td scope="row">
-                            <%= category.title %>
+                            <%= link_to category.title, admins_category_questions_path(category_id: category.id) %>
                         </td>
                         <td>
                             <%= category.content %>

@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
     namespace :admins do
         resources :users, only: [:index, :update]
-        resources :categories
+        resources :categories do
+            resources :questions
+        end
     end
 
     get "/signup", to: "users#new"
@@ -18,4 +20,5 @@ Rails.application.routes.draw do
     resources :users, except: :new
     resources :relationships, only: [:create, :destroy]
     resources :categories, only: [:index]
+    resources :questions
 end
