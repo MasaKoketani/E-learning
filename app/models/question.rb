@@ -7,6 +7,10 @@ class Question < ApplicationRecord
 
   validate :check_correct
 
+
+  def correct_answer
+    choices.find_by(correct: true)
+  end
   private
     def check_correct
       c = choices.collect { |choice| choice.correct || nil }
