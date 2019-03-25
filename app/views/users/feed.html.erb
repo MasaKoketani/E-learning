@@ -37,5 +37,21 @@
         </div>
     </div>
     <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>Activities List</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% @activities.each do |activity| %>
+                    <li class="list-group-item">
+                        <% if activity.action_type == "Lesson" %>
+                            <%= "#{User.find(activity.user_id).name} learnd #{Category.find(Lesson.find(activity.action_id).category_id).content}" %>
+                        <% else %>
+                            <%= "#{User.find(activity.user_id).name} followed #{User.find(Relationship.find(activity.action_id).followed_id).name}" %>
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
     </div>
 </div>

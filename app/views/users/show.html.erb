@@ -4,9 +4,9 @@
             <div class="card-img-top">
                 <div class="user-picture text-center ">
                     <% if @user.picture.blank? %>
-                        <%= image_tag "/default.png", class: " rounded-circle user-default-image-show" %>
+                    <%= image_tag "/default.png", class: " rounded-circle user-default-image-show" %>
                     <% else %>
-                        <%= image_tag @user.picture.to_s, class: "rounded-circle" %>
+                    <%= image_tag @user.picture.to_s, class: "rounded-circle" %>
                     <% end %>
                 </div>
             </div>
@@ -26,10 +26,10 @@
                         </div>
                     </li>
                     <% unless current_user.id == @user.id%>
-                        <% if relationship = current_user.relationship(@user) %>
+                        <% if current_user.relationship(@user) %>
                             <%= button_to "Unfollow", relationship_path(relationship), method: :delete, class: "btn btn-danger btn-block" %>
                         <% else %>
-                            <%= button_to "Follow", relationships_path, params: {followed_id: @user.id}, class: "btn btn-success btn-block" %>
+                            <%= button_to "Follow", relationships_path, params: {followed_id: @user.id}, method: :post, class: "btn btn-success btn-block" %>
                         <% end %>
                     <% end %>
                 </ul>
@@ -37,5 +37,21 @@
         </div>
     </div>
     <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>Activities List</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% @activities.each do |activity| %>
+                    <li class="list-group-item">
+                        <% if activity.action_type == "Lesson" %>
+                            <%= "#{User.find(activity.user_id).name} learnd #{Category.find(Lesson.find(activity.action_id).category_id).content}" %>
+                        <% else %>
+                            <%= "#{User.find(activity.user_id).name} followed #{User.find(Relationship.find(activity.action_id).followed_id).name}" %>
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
     </div>
 </div>
