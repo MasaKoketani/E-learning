@@ -26,7 +26,7 @@
                         </div>
                     </li>
                     <% unless current_user.id == @user.id%>
-                        <% if current_user.relationship(@user) %>
+                        <% if relationship = current_user.relationship(@user) %>
                             <%= button_to "Unfollow", relationship_path(relationship), method: :delete, class: "btn btn-danger btn-block" %>
                         <% else %>
                             <%= button_to "Follow", relationships_path, params: {followed_id: @user.id}, method: :post, class: "btn btn-success btn-block" %>

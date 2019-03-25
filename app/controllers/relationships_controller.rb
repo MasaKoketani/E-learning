@@ -1,11 +1,11 @@
 class RelationshipsController < ApplicationController
   def create
 
-    relationship = Relationship.create!(
+    relationship = Relationship.new(
       follower_id: current_user.id,
       followed_id: params[:followed_id]
       )
-    abort
+    relationship.save
 
     Activity.create(user_id: current_user.id, action_id: relationship.id, action_type: "Relationship")
 

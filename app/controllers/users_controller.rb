@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @activities = Activity.where(user_id: @user.id).order(:updated_at)
+    @activities = Activity.where(user_id: @user.id).order(updated_at: "desc")
   end
 
   def edit
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     users = Relationship.where(follower_id: @user.id).collect { |n| n.followed_id}
     users << @user
-    @activities = Activity.where(user_id: users).order(:updated_at)
+    @activities = Activity.where(user_id: users).order(updated_at: "desc")
   end
 
 
