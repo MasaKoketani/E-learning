@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         if user && user.authenticate(params[:session][:password])
             session[:user_id] = user.id
             flash[:notice] = "Hurray! Successfully logged in!"
-            redirect_to user_url(user.id)
+            redirect_to feed_path
         else
             flash[:danger] = "Invalid Credentials"
             render "new"
