@@ -3,46 +3,50 @@
         <h1>Categories lists</h1>
         <div class="text-right">
             <%= link_to "All", categories_path, {method: :get, class: "btn btn-primary d-inline-block"} %>
-            <%= link_to "Unlearned", categories_path(status: "Unlearned"), {method: :get, class: "btn btn-primary d-inline-block"} %>
-            <%= link_to "Learnd", categories_path(status: "Learned"), {method: :get, class: "btn btn-primary d-inline-block"} %>
+            <%= link_to "UnLearned", categories_path(status: "UnLearned"), {method: :get, class: "btn btn-primary d-inline-block"} %>
+            <%= link_to "Learned", categories_path(status: "Learned"), {method: :get, class: "btn btn-primary d-inline-block"} %>
         </div>
     </div>
     <br>
     <nav>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Words Count</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @categories.each do |category| %>
+        <% if @categories.empty? %>
+            <h2 class="text-center found-none-text"><%= "Nothing to show" %></h2>
+        <% else %>  
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <td scope="row">
-                            <%= category.title %>
-                        </td>
-                        <td>
-                            <%= category.content %>
-                        </td>
-                        <td>
-                            <%= "words" %>
-                        </td>
-                        <td>
-                            <% if Lesson.find_by(user_id: current_user.id, category_id: category.id) %>
-                                <%= link_to "Go to result", lesson_path(Lesson.find_by(user_id: current_user.id, category_id: category.id).id), {method: :get, class: "btn"} %>
-                            <% else %>
-                                <%= form_for @lesson do |f| %>
-                                    <%= hidden_field_tag :category_id, category.id %>
-                                    <%= f.submit "Learn", {class: "btn btn-primary"} %>
-                                <% end %>
-                            <% end %>
-                        </td>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Words Count</th>
+                        <th scope="col"></th>
                     </tr>
-                <% end %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% @categories.each do |category| %>
+                        <tr>
+                            <td scope="row">
+                                <%= category.title %>
+                            </td>
+                            <td>
+                                <%= category.content %>
+                            </td>
+                            <td>
+                                <%= "words" %>
+                            </td>
+                            <td>
+                                <% if Lesson.find_by(user_id: current_user.id, category_id: category.id) %>
+                                    <%= link_to "Go to result", lesson_path(Lesson.find_by(user_id: current_user.id, category_id: category.id).id), {method: :get, class: "btn"} %>
+                                <% else %>
+                                    <%= form_for @lesson do |f| %>
+                                        <%= hidden_field_tag :category_id, category.id %>
+                                        <%= f.submit "Learn", {class: "btn btn-primary"} %>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
     </nav>
 </div>

@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-lg-6 offset-3">
         <% if @lesson.category.questions.empty? %>
-            <h2><%= "#{@lesson.category.content} has not questions" %></h2>
+            <h2 class="text-center found-none-text"><%= "#{@lesson.category.content} has not questions" %></h2>
             <br>
-            <%= link_to "OK", categories_path, {method: :get, class: "btn btn-primary"} %>
+            <%= link_to "OK", categories_path, {method: :get, class: "btn btn-primary btn-block m-2"} %>
         <% else %>
             <h1><%= @lesson.next_question.content %></h1>
             <hr/>

@@ -4,12 +4,13 @@ class CategoriesController < ApplicationController
   def index
     if params[:status] == "Learned"
       @categories = Category.joins(:lessons).where(lessons: {result: true})
-    elsif params[:status] == "Unlearned"
+    elsif params[:status] == "UnLearned"
       @categories = Category.includes(:lessons).where(lessons: {category_id: nil})
     else
       @categories = Category.all
     end
     @lesson = Lesson.new
+    # abort
   end
 
   private
