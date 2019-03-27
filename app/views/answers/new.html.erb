@@ -1,13 +1,18 @@
 <div class="row">
     <div class="col-lg-6 offset-3">
-        <h1><%= @lesson.next_question.content %></h1>
-        <hr />
-
-        <% @lesson.next_question.choices.each do |choice| %>
-            <%= form_for [:lesson, @answer] do |f| %>
-                <%= hidden_field_tag :question_id, choice.question_id %>
-                <%= hidden_field_tag :choice_id, choice.id %>
-                <%= f.submit choice.content, class: 'btn btn-primary btn-block m-2' %>
+        <% if @lesson.category.questions.empty? %>
+            <h2><%= "#{@lesson.category.content} has not questions" %></h2>
+            <br>
+            <%= link_to "OK", categories_path, {method: :get, class: "btn btn-primary"} %>
+        <% else %>
+            <h1><%= @lesson.next_question.content %></h1>
+            <hr/>
+            <% @lesson.next_question.choices.each do |choice| %>
+                <%= form_for [:lesson, @answer] do |f| %>
+                    <%= hidden_field_tag :question_id, choice.question_id %>
+                    <%= hidden_field_tag :choice_id, choice.id %>
+                    <%= f.submit choice.content, class: 'btn btn-primary btn-block m-2' %>
+                <% end %>
             <% end %>
         <% end %>
     </div>

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
 
   def index
-    @users = User.page(params[:page]).per(10)
+    @users = User.search(params[:search]).page(params[:page]).per(10)
   end
 
   def new

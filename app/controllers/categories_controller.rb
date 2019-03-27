@@ -2,10 +2,15 @@ class CategoriesController < ApplicationController
   before_action :require_login
 
   def index
-    @categories = Category.page(params[:page]).per(7)
+    if params[:status] == "Learned"
+      @categories = Category.joins(:lessons).where(lessons: {result: true})
+    elsif params[:status] == "Unlearned"
+      @categories = Category.includes(:lessons).where(lessons: {category_id: nil})
+    else
+      @categories = Category.all
+    end
     @lesson = Lesson.new
   end
-
 
   private
   def require_login

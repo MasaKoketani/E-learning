@@ -1,5 +1,12 @@
 <div>
-    <h1>Categories lists</h1>
+    <div>
+        <h1>Categories lists</h1>
+        <div class="text-right">
+            <%= link_to "All", categories_path, {method: :get, class: "btn btn-primary d-inline-block"} %>
+            <%= link_to "Unlearned", categories_path(status: "Unlearned"), {method: :get, class: "btn btn-primary d-inline-block"} %>
+            <%= link_to "Learnd", categories_path(status: "Learned"), {method: :get, class: "btn btn-primary d-inline-block"} %>
+        </div>
+    </div>
     <br>
     <nav>
         <table class="table">
