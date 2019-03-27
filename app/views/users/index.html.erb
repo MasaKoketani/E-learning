@@ -1,34 +1,42 @@
 <div>
     <h1>User lists</h1>
+    <%= form_tag(users_path, {:method => 'get', class: "form-inline"} ) do %>
+        <%= text_field_tag :search, "", class: "form-control mr-sm-2" %>
+        <%= submit_tag 'Search User', {:name => nil, class: "btn btn-primary"} %>
+    <% end %>
 </div>
 <br>
 <div>
     <nav>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @users.each do |user| %>
+        <% if @users.empty? %>
+            <h2 class="text-center found-none-text"><%= "Not found Users" %></h2>
+        <% else%>
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <td scope="row">
-                            <h4><% if user.picture.blank? %>
-                                <%= image_tag "/default.png", class: " rounded-circle user-default-image-index" %>
-                            <% else %>
-                                <%= image_tag user.picture.to_s, class: "rounded-circle user-default-image-index" %>
-                            <% end %>
-                            &ensp;&ensp;
-                            <%= link_to user.name, user_path(user) %></h4>
-                        </td>
-                        <td><h5 class="user-index-td"><%= user.email %></h5></td>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col"></th>
                     </tr>
-                <% end %>
-            </tbody>
-        </table>
-        <%= paginate @users %>
+                </thead>
+                <tbody>
+                    <% @users.each do |user| %>
+                        <tr>
+                            <td scope="row">
+                                <h4><% if user.picture.blank? %>
+                                    <%= image_tag "/default.png", class: " rounded-circle user-default-image-index" %>
+                                <% else %>
+                                    <%= image_tag user.picture.to_s, class: "rounded-circle user-default-image-index" %>
+                                <% end %>
+                                &ensp;&ensp;
+                                <%= link_to user.name, user_path(user) %></h4>
+                            </td>
+                            <td><h5 class="user-index-td"><%= user.email %></h5></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <%= paginate @users %>
+        <% end %>
     </nav>
 </div>

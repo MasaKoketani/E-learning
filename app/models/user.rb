@@ -12,6 +12,14 @@ class User < ApplicationRecord
 
   has_many :activites
 
+  def self.search(search)
+    if search
+      where(['name LIKE ?', "%#{search}%"])
+    else
+      all
+    end
+  end
+
   def followers
     Relationship.where(followed_id: id)
   end

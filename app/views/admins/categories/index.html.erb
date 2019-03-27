@@ -6,35 +6,39 @@
             <%= button_to "New", new_admins_category_url, {method: :get, class: "btn btn-primary"} %>
         </div>
         <br>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Words</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @categories.each do |category| %>
+        <% if @categories.empty? %>
+            <h2 class="text-center found-none-text"><%= "Nothing to show" %></h2>
+        <% else %>
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <td scope="row">
-                            <%= link_to category.title, admins_category_questions_path(category_id: category.id) %>
-                        </td>
-                        <td>
-                            <%= category.content %>
-                        </td>
-                        <td>
-                            <%= "words" %>
-                        </td>
-                        <td class="form-inline">
-                            <%= link_to "Edit", edit_admins_category_path(category), {method: :get, class: "btn btn-info"} %>
-                            &ensp;
-                            <%= link_to "Delete", admins_category_path(category), {method: :delete, class: "btn btn-danger"} %>
-                        </td>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Words</th>
+                        <th scope="col">Action</th>
                     </tr>
-                <% end %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% @categories.each do |category| %>
+                        <tr>
+                            <td scope="row">
+                                <%= link_to category.title, admins_category_questions_path(category_id: category.id) %>
+                            </td>
+                            <td>
+                                <%= category.content %>
+                            </td>
+                            <td>
+                                <%= "words" %>
+                            </td>
+                            <td class="form-inline">
+                                <%= link_to "Edit", edit_admins_category_path(category), {method: :get, class: "btn btn-info"} %>
+                                &ensp;
+                                <%= link_to "Delete", admins_category_path(category), {method: :delete, class: "btn btn-danger"} %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
     </nav>
 </div>

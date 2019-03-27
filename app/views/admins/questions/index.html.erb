@@ -6,35 +6,42 @@
             <%= link_to "New", new_admins_category_question_path(category_id: @category.id), {class: "btn btn-primary"} %>
         </div>
         <br>
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Question</th>
-                    <th scope="col">Answer</th>
-                    <th scope="col">Action</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @questions.each do |question| %>
+        <% if @questions.empty? %>
+            <h2 class="text-center found-none-text"><%= "Nothing to show" %></h2>
+        <% else %>
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <td scope="row">
-                            <%= question.content %>
-                        </td>
-                        <td>
-                            <% question.choices.each do |choice| %>
-                                <% if choice.correct %>
-                                    <%= choice.content %>
-                                <% end %>
-                            <% end %>
-                        </td>
-                        <td>
-                            <%= link_to "Edit", edit_admins_category_question_path(category_id: @category.id, id: question.id), {method: :get, class: "btn btn-info"} %>
-                            <%= link_to "Delete", admins_category_question_path(category_id: @category.id, id: question.id), {method: :delete, class: "btn btn-danger"} %>
-                        </td>
+                        <th scope="col">Question</th>
+                        <th scope="col">Answer</th>
+                        <th scope="col">Action</th>
+                        <th scope="col"></th>
                     </tr>
-                <% end %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% @questions.each do |question| %>
+                        <tr>
+                            <td scope="row">
+                                <%= question.content %>
+                            </td>
+                            <td>
+                                <% question.choices.each do |choice| %>
+                                    <% if choice.correct %>
+                                        <%= choice.content %>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                            <td>
+                                <%= link_to "Edit", edit_admins_category_question_path(category_id: @category.id, id: question.id), {method: :get, class: "btn btn-info"} %>
+                                <%= link_to "Delete", admins_category_question_path(category_id: @category.id, id: question.id), {method: :delete, class: "btn btn-danger"} %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        <% end %>
+        <div class="text-right">
+            <%= link_to "Back to Categories", admins_categories_path, {class: "btn btn-primary"} %>
+        </div>
     </nav>
 </div>

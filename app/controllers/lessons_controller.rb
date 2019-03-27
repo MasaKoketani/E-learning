@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
     before_action :require_login
 
     def create
-        lesson = Lesson.new(user_id: current_user.id, category_id: params[:category_id])
+        lesson = Lesson.new(user_id: current_user.id, category_id: params[:category_id], result: true)
 
         if lesson.save
             Activity.create(user_id: current_user.id, action_id: lesson.id, action_type: "Lesson")
