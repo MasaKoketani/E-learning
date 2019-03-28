@@ -18,10 +18,23 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col">
-                                <p><span style="font-size: 20px;"><%= @user.following.count %></span> following</p>
+                                <%= link_to relationship_user_path(@user, status: "follower") do %>
+                                    <span style="font-size: 20px;"><%= @user.following.count %></span> following
+                                <% end %>
                             </div>
                             <div class="col">
-                                <p><span style="font-size: 20px;"><%= @user.followers.count %></span> followerd</p>
+                                <%= link_to relationship_user_path(@user, status: "followed") do %>
+                                    <span style="font-size: 20px;"><%= @user.followers.count %></span> followerd
+                                <% end %>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col text-center">
+                                <%= link_to lesson_user_path(@user) do %>
+                                    <span style="font-size: 20px;"><%= @lessons.count %></span> learnd
+                                <% end %>
                             </div>
                         </div>
                     </li>
@@ -37,21 +50,25 @@
         </div>
     </div>
     <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h3>Activities List</h3>
+        <% if @activities.empty? %>
+            <h2 class="found-none-text"><%= "Not found Activity" %></h2>
+        <% else %>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Activities List</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <% @activities.each do |activity| %>
+                        <li class="list-group-item">
+                            <% if activity.action_type == "Lesson" %>
+                                <%= "#{User.find(activity.user_id).name} learnd #{Category.find(Lesson.find(activity.action_id).category_id).content}" %>
+                            <% else %>
+                                <%= "#{User.find(activity.user_id).name} followed #{User.find(Relationship.find(activity.action_id).followed_id).name}" %>
+                            <% end %>
+                        </li>
+                    <% end %>
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <% @activities.each do |activity| %>
-                    <li class="list-group-item">
-                        <% if activity.action_type == "Lesson" %>
-                            <%= "#{User.find(activity.user_id).name} learnd #{Category.find(Lesson.find(activity.action_id).category_id).content}" %>
-                        <% else %>
-                            <%= "#{User.find(activity.user_id).name} followed #{User.find(Relationship.find(activity.action_id).followed_id).name}" %>
-                        <% end %>
-                    </li>
-                <% end %>
-            </ul>
-        </div>
+        <% end %>
     </div>
 </div>

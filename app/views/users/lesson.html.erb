@@ -50,21 +50,17 @@
         </div>
     </div>
     <div class="col-md-8">
-        <% if  %>
-            <h2 class="found-none-text"><%= "Not found Activity" %></h2>
+        <% if @lessons.empty? %>
+            <h2 class="found-none-text"><%= "Not found lessons" %></h2>
         <% else %>
             <div class="card">
-                <div class="card-header">
-                    <h3>Activities List</h3>
+                <div class="card-header form-inline">
+                    <h3><%= "#{@user.name} learned lessons list" %></h3>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <% @activities.each do |activity| %>
+                    <% @lessons.each do |l| %>
                         <li class="list-group-item">
-                            <% if activity.action_type == "Lesson" %>
-                                <%= "#{User.find(activity.user_id).name} learnd #{Category.find(Lesson.find(activity.action_id).category_id).content}" %>
-                            <% else %>
-                                <%= "#{User.find(activity.user_id).name} followed #{User.find(Relationship.find(activity.action_id).followed_id).name}" %>
-                            <% end %>
+                            <%= l.category.content %>
                         </li>
                     <% end %>
                 </ul>

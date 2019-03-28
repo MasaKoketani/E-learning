@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @activities = Activity.where(user_id: @user.id).order(updated_at: "desc")
+    @lessons = Lesson.where(user_id: @user.id)
   end
 
   def edit
@@ -44,6 +45,22 @@ class UsersController < ApplicationController
     users = Relationship.where(follower_id: @user.id).collect { |n| n.followed_id}
     users << @user
     @activities = Activity.where(user_id: users).order(updated_at: "desc")
+    @lessons = Lesson.where(user_id: current_user.id)
+  end
+
+  def lesson
+    @user = User.find(params[:id])
+    @lessons = Lesson.where(user_id: @user.id)
+  end
+
+  def relationship
+    @user = User.find(params[:id])
+    @lessons = Lesson.where(user_id: @user.id)
+    if params[:status] == "followed"
+      @relationships_users = Relationship.where(followed_id: @user.id).collect { |u| User.find(u.follower_id)}
+    else
+      @relationships_users = Relationship.where(follower_id: @user.id).collect { |u| User.find(u.followed_id)}
+    end
   end
 
 
